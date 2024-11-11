@@ -1,37 +1,38 @@
-import { Tabs } from 'expo-router';
 import React from 'react';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <Tabs>
+      {/* Halaman Login tanpa Tab Navigasi */}
       <Tabs.Screen
-        name="index"
+        name="login"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarStyle: { display: 'none' }, // Menyembunyikan seluruh tab navigasi di halaman login
+          headerShown: false, // Menyembunyikan header jika diperlukan
+        }}
+      />
+
+      {/* Halaman Input dengan Tab Navigasi */}
+      <Tabs.Screen
+        name="input"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" size={size} color={color} />
           ),
         }}
       />
+
+      {/* Halaman Produk dengan Tab Navigasi */}
       <Tabs.Screen
-        name="explore"
+        name="produk"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="cube" size={size} color={color} />
           ),
         }}
       />
     </Tabs>
   );
-}
+};
